@@ -1,7 +1,7 @@
 import Profile from "../../../../components/Profile"
-import { NextPage } from "next"
+//import { NextPage } from "next"
 
-const ProfilePage: NextPage = () => {
+const ProfilePage = () => {
     return<>
         <Profile/>
     </>
