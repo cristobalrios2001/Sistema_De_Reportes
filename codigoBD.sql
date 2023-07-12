@@ -24,18 +24,17 @@ CREATE TABLE fase(
 );
 
 CREATE TABLE extraccion(
-	id_extraccion serial,
 	fecha date,
 	flota varchar(20),
 	camion varchar(10),
 	material varchar(20),
 	origen varchar(20),
 	destino varchar(20),
-	tonelaje float,
-	ciclos integer,
 	rajo varchar(20),
 	fase varchar(10),
-	PRIMARY KEY(id_extraccion),
+	tonelaje float,
+	ciclos integer,
+	PRIMARY KEY(fecha, rajo, fase, flota, camion, origen, destino, material),
 	FOREIGN KEY(flota, camion) REFERENCES camion(flota, id_camion),
 	FOREIGN KEY(rajo, fase) REFERENCES fase(rajo, id_fase)
 );
