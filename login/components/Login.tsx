@@ -18,6 +18,9 @@ const Login: React.FC = () => {
             router.push('auth/profile')
         }
         else{
+            <div className='text-white'>
+                Acceso Incorrecto
+            </div>
             router.push('/')
         }
         console.log(response);
@@ -27,10 +30,10 @@ const Login: React.FC = () => {
     
     return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat bg-[url('https://web.mineracentinela.cl/media/4083/centinela-6.jpg')]">
-        <div className="rounded-xl bg-gray-800 bg-opacity-50 px-20 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
+        <div className="rounded-xl bg-gray-800 bg-opacity-50 px-20 py-10 shadow-lg backdrop-blur-md">
             <div className="text-white">
                 <div className="mb-8 flex flex-col items-center">
-                    <img src="https://static.wixstatic.com/media/8db992_3c6f3144b95c4690a72c5ea5c6bd9176~mv2.png/v1/crop/x_24,y_0,w_251,h_172/fill/w_351,h_240,al_c,lg_1,q_85,enc_auto/8db992_3c6f3144b95c4690a72c5ea5c6bd9176~mv2.png" width="150" alt="" srcSet="" />
+                    <img className='brightness-200 grayscale' src="https://static.wixstatic.com/media/8db992_3c6f3144b95c4690a72c5ea5c6bd9176~mv2.png/v1/crop/x_24,y_0,w_251,h_172/fill/w_351,h_240,al_c,lg_1,q_85,enc_auto/8db992_3c6f3144b95c4690a72c5ea5c6bd9176~mv2.png" width="150" alt="" srcSet="" />
                     <h1 className="mb-2 text-2xl flex">Sistema Reportes Mina</h1>
                     <span className="text-gray-300">Ingrese sus datos</span>
                 </div>
