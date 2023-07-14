@@ -1,24 +1,21 @@
 import { PrimaryKey } from "sequelize-typescript"
-import { Column, Entity } from "typeorm"
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm"
+import { Rajo } from "./rajo.entity"
 
 @Entity({
     name:'factor_carga'
 })
 export class factorCarga{
-    @Column({
-        primary :true,
-    })
-    id : string
-
-    @Column({ type: 'date' })
+    @PrimaryColumn({ type: 'date'})
     fecha_inicio : Date
 
-    @Column({ type: 'date' })
+    @PrimaryColumn({ type: 'date'})
     fecha_termino : Date
 
-    @Column()
-    rajo: string
-
+    @ManyToOne(()=>Rajo)
+    @JoinColumn({ name: 'rajo', referencedColumnName: 'nombre_rajo'})
+    rajo : Rajo;
+    
     @Column({type:'float'})
     tonelaje: number
 }

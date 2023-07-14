@@ -16,6 +16,7 @@ export class FactorCargaService {
     return await this.factorCargaRepository.save(factorCarga);
   }
 
+
   findAll() {
     return `This action returns all factorCarga`;
   }

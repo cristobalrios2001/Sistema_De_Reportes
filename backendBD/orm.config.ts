@@ -1,9 +1,10 @@
 import { ConfigModule } from "@nestjs/config";
 import { env } from "process";
 import { User } from "../entitites/user.entity";
-import { DataSource, DataSourceOptions } from "typeorm";
+import { DataSource, DataSourceOptions, Entity } from "typeorm";
 import {config } from 'dotenv'
 import { factorCarga } from "src/entitites/factor-carga.entity";
+import { Rajo } from "src/entitites/rajo.entity";
 
 //Para que funcione las varaibles de entorno tengo que agregar el metodo CONFIG
 ConfigModule.forRoot({
@@ -14,6 +15,10 @@ ConfigModule.forRoot({
 config({
     path: '.env.db',
 })
+
+const entities = [User,factorCarga,Rajo];
+const entityFiles = entities.map(entity => entity.prototype.constructor)
+
 //Configuracion base de datos
 const DatabaseConfig : DataSourceOptions = {
     type: process.env.TYPEORM_CONNECTION as any,
@@ -24,7 +29,7 @@ const DatabaseConfig : DataSourceOptions = {
     database: process.env.TYPEORM_DATABASE,
     synchronize: process.env.TYPEORM_SYNCHRONIZE == "true",
     logging: process.env.TYPEORM_LOGGING == "true",
-    entities: [User],
+    entities: entityFiles,
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],//importo mis entities de mi carpeta(user,)
 }
 
@@ -37,10 +42,9 @@ const DatabaseConfigDB: DataSourceOptions = {
     database: process.env.TYPEORM_DATABASE,
     synchronize: process.env.TYPEORM_SYNCHRONIZE == "true",
     logging: process.env.TYPEORM_LOGGING == "true",
-    entities: [factorCarga],
+    entities: [factorCarga,Rajo],
     migrations: [__dirname + '/../migrations/*{.ts,.js}'],
 };
-
 const TestConfig: DataSourceOptions = {
     type: 'sqlite3' as any,
     database: ':memory:',
@@ -74,3 +78,7 @@ export { DatabaseConfig, DatabaseConfigDB }; //Exporto la configuracion correspo
 
 //Para la configuración del archivo json
 export const  AppDS = new DataSource(DataSourceConfig)
+function loadEntities(arg0: (typeof User | typeof factorCarga | typeof Rajo)[]): import("typeorm").MixedList<string | Function | import("typeorm").EntitySchema<any>> {
+    throw new Error("Function not implemented.");
+}
+
