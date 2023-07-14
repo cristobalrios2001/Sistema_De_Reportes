@@ -5,7 +5,7 @@ CREATE TABLE flota(
 
 CREATE TABLE camion(
 	flota varchar(20),
-	id_camion varchar(10),
+	id_camion varchar(20),
 	PRIMARY KEY(flota, id_camion),
 	FOREIGN KEY(flota) REFERENCES flota(nombre_flota)
 );
@@ -17,7 +17,7 @@ CREATE TABLE rajo(
 
 CREATE TABLE fase(
 	rajo varchar(20),
-	id_fase varchar(10),
+	id_fase varchar(20),
 	estado boolean,
 	PRIMARY KEY(rajo, id_fase),
 	FOREIGN KEY(rajo) REFERENCES rajo(nombre_rajo)
@@ -26,12 +26,12 @@ CREATE TABLE fase(
 CREATE TABLE extraccion(
 	fecha date,
 	flota varchar(20),
-	camion varchar(10),
+	camion varchar(20),
 	material varchar(20),
 	origen varchar(20),
 	destino varchar(20),
 	rajo varchar(20),
-	fase varchar(10),
+	fase varchar(20),
 	tonelaje float,
 	ciclos integer,
 	PRIMARY KEY(fecha, rajo, fase, flota, camion, origen, destino, material),
@@ -39,22 +39,19 @@ CREATE TABLE extraccion(
 	FOREIGN KEY(rajo, fase) REFERENCES fase(rajo, id_fase)
 );
 
-CREATE TABLE factor_carga(
-	id_factor serial,
+create table factor_carga(
 	fecha_inicio date,
 	fecha_termino date,
 	rajo varchar(20),
-	fase varchar(10),
-	flota varchar(20),
-	PRIMARY KEY(id_factor),
-	FOREIGN KEY(rajo, fase) REFERENCES fase(rajo, id_fase),
-	FOREIGN KEY(flota) REFERENCES flota(nombre_flota)
+	tonelaje float,
+	PRIMARY KEY(fecha_inicio, fecha_termino, rajo),
+	FOREIGN KEY(rajo) REFERENCES rajo(nombre_rajo)
 );
 
 CREATE TABLE reporte_diario(
 	fecha date,
 	rajo varchar(20),
-	fase varchar(10),
+	fase varchar(20),
 	extraccion_mineral float,
 	extraccion_lastre float,
 	total_extraccion float,
@@ -83,7 +80,7 @@ CREATE TABLE movimiento_fases(
 	id_movimientos serial,
 	plan integer,
 	rajo varchar(20),
-	fase varchar(10),
+	fase varchar(20),
 	PRIMARY KEY(id_movimientos),
 	FOREIGN KEY(plan) REFERENCES datos_plan(id_datos),
 	FOREIGN KEY(rajo, fase) REFERENCES fase(rajo, id_fase)
