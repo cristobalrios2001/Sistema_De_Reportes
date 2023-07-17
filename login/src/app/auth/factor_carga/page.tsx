@@ -1,9 +1,9 @@
-import FactorCarga from "../../../../components/FactorCarga"
+import FactorCarga2 from "../../../../components/FactorCarga2"
 //import { NextPage } from "next"
 
 const FactorCargaPage = () => {
     return<>
-        <FactorCarga/>
+        <FactorCarga2/>
     </>
 }
 

@@ -78,7 +78,6 @@ const FactorCarga: React.FC = () => {
           
           <div className="flex flex-col items-center ml-32 bg-[#47636b] rounded-3xl py-16 px-24 border-4 border-[#DF4C17]">
             <form action="#">
-
             <div className="relative ml-24">
               <div className='rounded py-2' style={{ marginBottom: '10px' }}>
                 <label style={{ color: 'white' }}>
@@ -136,8 +135,6 @@ const FactorCarga: React.FC = () => {
                 </div>
               )}
             </div>
-
-
               <div className="relative mt-10">
                 <input autoComplete="off"
                     type="text"
@@ -154,9 +151,6 @@ const FactorCarga: React.FC = () => {
           <div className="mt-8 flex justify-flex text-lg text-black ml-8">              
               <button type="button" className="rounded-3xl bg-[#384E55] px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b]">Aceptar Factor</button>
           </div>
-          
-          
-      
         </div>
     )
 }

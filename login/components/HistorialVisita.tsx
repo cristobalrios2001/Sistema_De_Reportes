@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from "next/navigation";
 
-const AceptarVisita: React.FC = () => {
+const HistorialVisita: React.FC = () => {
 
     const token = localStorage.getItem('token');
     const router = useRouter();
@@ -22,32 +22,28 @@ const AceptarVisita: React.FC = () => {
             </div>
         </div>
           
-        <div>
-          <div className="Botones flex flex-row absolute inset-x-80 top-5">
-              <div className="ml-16">
+        <div className="Botones">
+          <div className="flex flex-row absolute inset-x-80 top-5">
+              <div className="relative inset-x-20">
                   <button className="mr-40 rounded-3xl bg-[#384E55] px-20 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md" onClick={() => router.push('aceptar_visita')}>Solicitudes</button>
-                  <button className="mr-7 rounded-3xl bg-[#384E55] px-10 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md" onClick={() => router.push('historial_visita')}>Historial de Solicitudes</button>
+                  <button className="rounded-3xl bg-[#384E55] px-10 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md" onClick={() => router.push('historial_visita')}>Historial de Solicitudes</button>
               </div>
           </div>  
         </div>
 
-        <div className="container flex flex-row absolute inset-x-80 top-24 text-center">
-              <div className="grid grid-cols-3 gap-16 ml-4">
-                <div className="rounded-3xl bg-[#456570] w-100 px-5 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors">Visita</div>
-                <div className="col-start-2 col-end-3 rounded-3xl bg-[#456570] w-100 px-16 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors">Aceptar</div>
-                <div className="mt-[-8px] col-start-1 flex items-center rounded-3xl bg-[#456570] w-96 px-24 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors">nombre_1@minerals.cl</div>
-                <div className="flex items-center">
-                  <button className="mr-16 rounded-2xl bg-[#384E55] mt-[-8px] px-16 py-3  shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md ">
-                    <img src='https://cdn.icon-icons.com/icons2/3436/PNG/512/box_tick_icon_218874.png' className="mr-8 object-fill h-8 w-88 " />
-                  </button>
-                  <button className="mr-16 rounded-2xl bg-[#384E55] mt-[-8px] px-16 py-3  shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md ">
-                    <img src='https://cdn.icon-icons.com/icons2/2716/PNG/512/x_square_icon_172784.png' className="mr-8 object-fill h-8 w-88 " />
-                  </button>
-                </div>
-              </div>
-        </div>
-          
+        <div className="Header flex flex-row absolute inset-x-80 top-24">
+          <div className="relative inset-x-14 mr-2.5">
+            <h1 className="rounded-3xl bg-[#456570] px-32 py-3 text-opacity-1000 shadow-xl">
+              Visita
+            </h1>
+          </div>
+          <div className="relative inset-x-44">
+            <h1 className="rounded-3xl bg-[#456570] px-32 py-3 text-opacity-1000 shadow-xl">
+              Estado
+            </h1>
+          </div>
+        </div>          
       </div>
     )
 }
-export default AceptarVisita
+export default HistorialVisita

@@ -15,16 +15,21 @@ const Login: React.FC = () => {
             password,
         });
         if(response.data.token){
-            router.push('auth/profile')
+            const isAdmin = response.data.admin;
+            if(isAdmin){
+                router.push('auth/profile');
+            }
+            else{
+                router.push('auth/visita');
+            }
+            
         }
         else{
             <div className='text-white'>
                 Acceso Incorrecto
             </div>
             router.push('/')
-        }
-        console.log(response);
-        
+        }        
     }
     
     

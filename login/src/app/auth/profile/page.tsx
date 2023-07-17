@@ -1,10 +1,10 @@
-import Profile from "../../../../components/Profile"
+import Admin from "../../../../components/Admin"
 //import { NextPage } from "next"
 
-const ProfilePage = () => {
+const AdminPage = () => {
     return<>
-        <Profile/>
+        <Admin/>
     </>
 }
 
-export default ProfilePage
+export default AdminPage
