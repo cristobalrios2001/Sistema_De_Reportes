@@ -1,10 +1,9 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import es from 'date-fns/locale/es';
-import rajos from "../src/rajos.json";
 import axios from 'axios'
 
 //Defino mi componente FactorCarga 
@@ -16,8 +15,17 @@ const FactorCarga: React.FC = () => {
   const [factorCarga, setFactorCarga] = useState('');
   const [selectedRajo, setSelectedRajo] = useState('');
 
+  const [rajosData, setRajosData] = useState<any[]>([]);
 
-  
+  async function getRajos() {
+    try {
+      const response = await axios.get('http://localhost:3000/rajo/allrajos');
+      return response.data;
+    } catch (error) {
+      throw new Error('Error fetching data from backend');
+    }
+  }
+
   const handleOptionChange = (option: number) => {
     setSelectedOption(option);
   };
@@ -67,6 +75,19 @@ const FactorCarga: React.FC = () => {
     </button>
   );
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const rajoData = await getRajos();
+        setRajosData(rajoData);
+      } catch (error) {
+        console.error();
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex h-screen w-full items-center bg-zinc-300 bg-cover text-xl">
       <div className="BarraIZQ absolut rounded-xl bg-[#384E55] ml-2 h-128 w-64 shadow-lg backdrop-blur-md max-sm:px-8 text-center">
@@ -84,13 +105,13 @@ const FactorCarga: React.FC = () => {
 
       <div className="DropDown flex flex-col items-center w-full lg:max-w-sm absolute inset-x-80 top-10">
             <select className="w-full p-2.5 text-black bg-white border rounded-md shadow-sm outline-none appearance-none" onChange={event => setSelectedRajo(event.target.value)}>
-                {rajos.map((item, i) => (
+                {rajosData.map((item, i) => (
                       <option className='backdrop-blur-md transition-colors duration-300 hover:bg-gray-300 backdrop-blur-md w-full'> 
-                          {item.nombre}
+                          {item.nombre_rajo}
                       </option>
                   ))}
             </select>
-        </div>
+      </div>
 
       <div className="flex flex-col items-center absolute inset-x-80 top-55 bg-[#47636b] rounded-3xl py-16 px-32 border-4 border-[#DF4C17]">
         <form className="#">

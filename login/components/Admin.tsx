@@ -1,12 +1,38 @@
 'use client'
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import rajos from "../src/rajos.json";
+import { useEffect, useState } from 'react';
+
 
 const Admin: React.FC = () => {
 
     const router = useRouter();
     
+    const [rajosDataAdmin, setRajosDataAdmin] = useState<any[]>([]);
+    const [selectedRajoAdmin, setSelectedRajoAdmin] = useState('');
+
+    async function getRajos() {
+      try {
+        const response = await axios.get('http://localhost:3000/rajo/allrajos');
+        return response.data;
+      } catch (error) {
+        throw new Error('Error fetching data from backend');
+      }
+    }
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const rajosDataAdmin = await getRajos();
+          setRajosDataAdmin(rajosDataAdmin);
+        } catch (error) {
+          console.error();
+        }
+      }
+  
+      fetchData();
+    }, []);
+
     return(
         <div className="flex h-screen w-full items-center bg-zinc-300 bg-cover text-xl">
 
@@ -24,14 +50,14 @@ const Admin: React.FC = () => {
           </div>
 
           <div className="DropDown flex flex-col items-center w-80 absolute inset-x-80 top-20">
-            <select className="w-full text-black bg-white border rounded shadow-sm outline-none appearance-none ml-32">
-                {rajos.map((item, i) => (
+            <select className="w-full text-black bg-white border rounded shadow-sm outline-none appearance-none ml-32" onChange={event => setSelectedRajoAdmin(event.target.value)}>
+                {rajosDataAdmin.map((item, i) => (
                       <option className='backdrop-blur-md transition-colors duration-300 hover:bg-gray-300 backdrop-blur-md w-full'> 
-                        {item.nombre}
+                          {item.nombre_rajo}
                       </option>
                   ))}
             </select>
-          </div>
+        </div>
 
           <div className="Botones flex flex-row absolute inset-x-0 top-0 ml-72 mt-5">
             <div className="ml-32">
