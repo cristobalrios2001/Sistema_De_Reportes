@@ -21,7 +21,7 @@ const Visita: React.FC = () => {
                 </div>
                 <div className='px-10 py-10'></div>
               </div>
-              <button className="mt-64 bg-[#384E55] rounded-3xl px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] backdrop-blur-md" onClick={() => router.push('login')}>Cerrar Sesión</button>
+              <button className="mt-64 bg-[#384E55] rounded-3xl px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] backdrop-blur-md" onClick={() => router.push('/')}>Cerrar Sesión</button>
             </div>
           </div>
 
