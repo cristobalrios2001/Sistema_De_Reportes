@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import es from 'date-fns/locale/es';
 import axios from 'axios'
 
 //Defino mi componente FactorCarga 

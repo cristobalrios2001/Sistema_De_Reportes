@@ -1,7 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import rajos from "../src/rajos.json";
 import axios from 'axios';
 
 const Usuario: React.FC = () => {
@@ -10,6 +9,24 @@ const Usuario: React.FC = () => {
 
   const [rajosData, setRajosData] = useState<any[]>([]);
 
+  // Estado para almacenar el número de página actual
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Nuevo estado para almacenar los reportes
+  const [reportesData, setReportesData] = useState<any[]>([]); 
+
+  const router = useRouter();
+
+  // Función para ir a la página siguiente
+  const nextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  // Función para ir a la página anterior
+  const prevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
   async function getRajos() {
     try {
       const response = await axios.get('http://localhost:3000/rajo/allrajos');
@@ -17,22 +34,45 @@ const Usuario: React.FC = () => {
     } catch (error) {
       throw new Error('Error fetching data from backend');
     }
+  }  
+  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const rajoData = await getRajos();
+        setRajosData(rajoData);
+      } catch (error) {
+        console.error();
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  async function getReportes(tipo: string) {
+    try {
+      const response = await axios.get(`http://localhost:3000/reporte/${tipo}`, {
+        params: {
+          rajo: selectedRajo,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Error fetching reportes from backend');
+    }
   }
 
-    const router = useRouter();
-    
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const rajoData = await getRajos();
-          setRajosData(rajoData);
-        } catch (error) {
-          console.error();
-        }
-      }
-  
-      fetchData();
-    }, []);
+  const handleButtonClick = async (tipo: string) => {
+    try {
+      const reportesData = await getReportes(tipo);
+      // Aquí puedes actualizar el estado con los reportes obtenidos y mostrarlos en la tabla.
+      setReportesData(reportesData);
+      setCurrentPage(1);
+      console.log(reportesData);
+    } catch (error) {
+      console.error('Error fetching reportes from backend', error);
+    }
+  };
 
     return(
         <div className="flex min-h-screen relative w-screen items-center bg-zinc-300 bg-cover text-xl">
@@ -59,41 +99,68 @@ const Usuario: React.FC = () => {
                       </option>
                   ))}
             </select>
-        </div>
+          </div>
 
-          <div className="Botones flex flex-row absolute inset-x-0 top-0 ml-72 mt-5">
+          <div className="Botones flex flex-row absolute inset-x-36 top-0 ml-72 mt-5">
             <div className="ml-32">
-              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] ">Diario</button>
-              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] ">Semanal</button>
-              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] ">Semanal Cerrado</button>
-              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] ">Mensual</button>
-              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] ">Anual</button>
+              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] " onClick={() => handleButtonClick('diario')}>Diario</button>
+              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] " onClick={() => handleButtonClick('semanal')}>Semanal</button>
+              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] " onClick={() => handleButtonClick('mensual')}>Mensual</button>
+              <button className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b] " onClick={() => handleButtonClick('anual')}>Anual</button>
             </div>
           </div>
           
-          <div className="TABLA flex flex-row absolute inset-x-72 top-24">
+          <div className="TABLA flex flex-row absolute inset-x-80 top-24">
             <h1 className="font-bold"></h1>
-            <table className="border-2 bg-white rounded mt-12">
-              <thead>
-                <tr>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Fecha</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Fase</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Extraccion Mineral</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Extraccion Lastre</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Total Extraccion</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Remanejo</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Mov.Total</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Chancado</th>
-                </tr>
-              </thead>
-              <tbody id="table-body" className='text-black text-small'>
-                DATOS
-              </tbody>
-            </table>
-          </div>  
-
-        </div>
-    )
+            <div className="table-container">
+              <table className="border-2 bg-white rounded mt-12">
+                <thead style={{ position: 'sticky', top: 0 }}>
+                  <tr>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-10">Fecha</th>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-7">Fase</th>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-5">Extraccion Mineral</th>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-10">Extraccion Lastre</th>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-10">Total Extraccion</th>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-4">Remanejo</th>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-6">Mov.Total</th>
+                    <th className="bg-[#0C7C8C] border-2 border-black px-6">Chancado</th>
+                  </tr>
+                </thead>
+                <tbody id="table-body" className='text-black text-small '>
+                  {reportesData.slice((currentPage - 1) * 7, currentPage * 7).map((reporte) => (
+                    <tr>
+                      <td style={{ textAlign: 'center' }}>{reporte.fecha}</td>
+                      <td style={{ textAlign: 'center' }}>{reporte.fase}</td>
+                      <td style={{ textAlign: 'center' }}>{reporte.extraccion_mineral}</td>
+                      <td style={{ textAlign: 'center' }}>{reporte.extraccion_lastre}</td>
+                      <td style={{ textAlign: 'center' }}>{reporte.total_extraccion}</td>
+                      <td style={{ textAlign: 'center' }}>{reporte.remanejo}</td>
+                      <td style={{ textAlign: 'center' }}>{reporte.movimiento_total}</td>
+                      <td style={{ textAlign: 'center' }}>{reporte.chancado}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>  
+            <div className="pagination  absolute flex flex-column justify-center  inset-x-80 top-0">
+              <button
+                className="mr-5 rounded-3xl bg-[#384E55] ml-80 px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b]"
+                disabled={currentPage === 1}
+                onClick={prevPage}
+              >
+                Anterior
+              </button>
+              <button
+                className="mr-5 rounded-3xl bg-[#384E55] px-10 py-2 text-white backdrop-blur-md transition-colors duration-300 hover:bg-[#47636b]"
+                disabled={currentPage * 7 >= reportesData.length}
+                onClick={nextPage}
+              >
+                Siguiente
+              </button>
+            </div>
+          </div>
+      </div>
+  )
 }
 
 export default Usuario
