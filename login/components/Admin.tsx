@@ -8,8 +8,8 @@ const Admin: React.FC = () => {
 
     const router = useRouter();
     
-    const [rajosDataAdmin, setRajosDataAdmin] = useState<any[]>([]);
-    const [selectedRajoAdmin, setSelectedRajoAdmin] = useState('');
+    const [rajosData, setRajosData] = useState<any[]>([]);
+    const [selectedRajo, setSelectedRajo] = useState('');
 
     async function getRajos() {
       try {
@@ -24,7 +24,7 @@ const Admin: React.FC = () => {
       async function fetchData() {
         try {
           const rajosDataAdmin = await getRajos();
-          setRajosDataAdmin(rajosDataAdmin);
+          setRajosData(rajosDataAdmin);
         } catch (error) {
           console.error();
         }
@@ -50,8 +50,8 @@ const Admin: React.FC = () => {
           </div>
 
           <div className="DropDown flex flex-col items-center w-80 absolute inset-x-80 top-20">
-            <select className="w-full text-black bg-white border rounded shadow-sm outline-none appearance-none ml-32" onChange={event => setSelectedRajoAdmin(event.target.value)}>
-                {rajosDataAdmin.map((item, i) => (
+            <select className="w-full text-black bg-white border rounded shadow-sm outline-none appearance-none ml-32" onChange={event => setSelectedRajo(event.target.value)}>
+                {rajosData.map((item, i) => (
                       <option className='backdrop-blur-md transition-colors duration-300 hover:bg-gray-300 backdrop-blur-md w-full'> 
                           {item.nombre_rajo}
                       </option>
@@ -69,30 +69,22 @@ const Admin: React.FC = () => {
             </div>
           </div>
           
-          <div className='Tabla'>
-            <div className="flex flex-row ml-72 mt-5 absolute inset-x-0 top-24" >
-                
-              <div className='bg-[#0C7C8C] border-2 border-black px-16 py-2 ml-24'>
-                Fecha
-              </div>
-                
-              <div className='bg-[#0C7C8C] border-2 border-black px-16 py-2'>
-                Fase
-              </div>
-
-              <div className='bg-[#0C7C8C] border-2 border-black px-16 py-2'>
-                Valor Real
-              </div>
-              
-              <div className='bg-[#0C7C8C] border-2 border-black px-12 py-2'>
-                Valor ISO
-              </div>
-          
-              <div className='bg-[#0C7C8C] border-2 border-black px-12 py-2'>
-                Valor Movil
-              </div>
-
-            </div>
+          <div className="TABLA flex flex-row absolute inset-x-80 top-24">
+          <h1 className="font-bold"></h1>
+          <table className="border-2 bg-white rounded mt-12">
+            <thead>
+              <tr>
+                <th className="bg-[#0C7C8C] border-2 border-black px-20">Fecha</th>
+                <th className="bg-[#0C7C8C] border-2 border-black px-20">Fase</th>
+                <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor Real</th>
+                <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor ISO</th>
+                <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor Movil</th>
+              </tr>
+            </thead>
+            <tbody id="table-body" className='text-black text-small'>
+              DATOS
+            </tbody>
+          </table>
           </div> 
 
         </div>

@@ -20,7 +20,7 @@ const Login: React.FC = () => {
                 router.push('auth/profile');
             }
             else{
-                router.push('auth/visita');
+                router.push('auth/usuario');
             }
             
         }
@@ -31,8 +31,7 @@ const Login: React.FC = () => {
             router.push('/')
         }        
     }
-    
-    
+        
     return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat bg-[url('https://web.mineracentinela.cl/media/4083/centinela-6.jpg')]">
         <div className="rounded-xl bg-gray-800 bg-opacity-50 px-20 py-10 shadow-lg backdrop-blur-md">
@@ -66,7 +65,7 @@ const Login: React.FC = () => {
                     </div>
                     <div className="mt-8 flex justify-flex text-lg text-black">
                         <button type="button" className="mr-5 rounded-3xl bg-sky-700 bg-opacity-20 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md" onClick={handleLogin}>Login</button>
-                        <button type="button" className="rounded-3xl bg-sky-700 bg-opacity-20 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800">Visita</button>
+                        <button type="button" className="rounded-3xl bg-sky-700 bg-opacity-20 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800" onClick={() => router.push("visita")}>Visita</button>
                     </div>
                 </form>
             </div>
