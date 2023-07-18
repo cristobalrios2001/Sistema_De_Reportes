@@ -65,7 +65,6 @@ CREATE TABLE reporte_diario(
 CREATE TABLE datos_plan(
 	fecha date,
 	rajo text,
-	fase text,
 	extraccion_mineral float,
 	extraccion_oxidos_mixtos float,
 	extraccion_lastre float,
@@ -73,17 +72,8 @@ CREATE TABLE datos_plan(
 	remanejo float,
 	movimiento_total float,
 	chancado float,
-	PRIMARY KEY(fecha, rajo, fase),
-	FOREIGN KEY(fecha, rajo, fase) REFERENCES reporte_diario(fecha, rajo, fase)
-);
-
-CREATE TABLE movimiento_fases(
-	fecha date,
-	rajo text,
-	fase text,
-	plan integer,
-	PRIMARY KEY(fecha, rajo, fase),
-	FOREIGN KEY(fecha, rajo, fase) REFERENCES datos_plan(fecha, rajo, fase)
+	PRIMARY KEY(fecha, rajo),
+	FOREIGN KEY(rajo) REFERENCES rajo(nombre_rajo)
 );
 
 CREATE TABLE users(
