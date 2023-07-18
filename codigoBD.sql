@@ -1,23 +1,23 @@
 CREATE TABLE flota(
-	nombre_flota varchar(20),
+	nombre_flota text,
 	PRIMARY KEY(nombre_flota)
 );
 
 CREATE TABLE camion(
-	flota varchar(20),
-	id_camion varchar(20),
+	flota text,
+	id_camion text,
 	PRIMARY KEY(flota, id_camion),
 	FOREIGN KEY(flota) REFERENCES flota(nombre_flota)
 );
 
 CREATE TABLE rajo(
-	nombre_rajo varchar(20),
+	nombre_rajo text,
 	PRIMARY KEY(nombre_rajo)
 );
 
 CREATE TABLE fase(
-	rajo varchar(20),
-	id_fase varchar(20),
+	rajo text,
+	id_fase text,
 	estado boolean,
 	PRIMARY KEY(rajo, id_fase),
 	FOREIGN KEY(rajo) REFERENCES rajo(nombre_rajo)
@@ -25,13 +25,13 @@ CREATE TABLE fase(
 
 CREATE TABLE extraccion(
 	fecha date,
-	flota varchar(20),
-	camion varchar(20),
-	material varchar(20),
-	origen varchar(20),
-	destino varchar(20),
-	rajo varchar(20),
-	fase varchar(20),
+	flota text,
+	camion text,
+	material text,
+	origen text,
+	destino text,
+	rajo text,
+	fase text,
 	tonelaje float,
 	ciclos integer,
 	PRIMARY KEY(fecha, rajo, fase, flota, camion, origen, destino, material),
@@ -42,7 +42,7 @@ CREATE TABLE extraccion(
 create table factor_carga(
 	fecha_inicio date,
 	fecha_termino date,
-	rajo varchar(20),
+	rajo text,
 	tonelaje float,
 	PRIMARY KEY(fecha_inicio, fecha_termino, rajo),
 	FOREIGN KEY(rajo) REFERENCES rajo(nombre_rajo)
@@ -50,21 +50,22 @@ create table factor_carga(
 
 CREATE TABLE reporte_diario(
 	fecha date,
-	rajo varchar(20),
-	fase varchar(20),
+	rajo text,
+	fase text,
 	extraccion_mineral float,
 	extraccion_lastre float,
 	total_extraccion float,
 	remanejo float,
 	movimiento_total float,
 	chancado float,
-	PRIMARY KEY(fecha),
+	PRIMARY KEY(fecha, rajo, fase),
 	FOREIGN KEY(rajo, fase) REFERENCES fase(rajo, id_fase)
 );
 
 CREATE TABLE datos_plan(
-	id_datos serial,
 	fecha date,
+	rajo text,
+	fase text,
 	extraccion_mineral float,
 	extraccion_oxidos_mixtos float,
 	extraccion_lastre float,
@@ -72,16 +73,22 @@ CREATE TABLE datos_plan(
 	remanejo float,
 	movimiento_total float,
 	chancado float,
-	PRIMARY KEY(id_datos),
-	FOREIGN KEY(fecha) REFERENCES reporte_diario(fecha)
+	PRIMARY KEY(fecha, rajo, fase),
+	FOREIGN KEY(fecha, rajo, fase) REFERENCES reporte_diario(fecha, rajo, fase)
 );
 
 CREATE TABLE movimiento_fases(
-	id_movimientos serial,
+	fecha date,
+	rajo text,
+	fase text,
 	plan integer,
-	rajo varchar(20),
-	fase varchar(20),
-	PRIMARY KEY(id_movimientos),
-	FOREIGN KEY(plan) REFERENCES datos_plan(id_datos),
-	FOREIGN KEY(rajo, fase) REFERENCES fase(rajo, id_fase)
+	PRIMARY KEY(fecha, rajo, fase),
+	FOREIGN KEY(fecha, rajo, fase) REFERENCES datos_plan(fecha, rajo, fase)
+);
+
+CREATE TABLE users(
+	correo text,
+	password text,
+	admin boolean,
+	PRIMARY KEY(correo)
 );
