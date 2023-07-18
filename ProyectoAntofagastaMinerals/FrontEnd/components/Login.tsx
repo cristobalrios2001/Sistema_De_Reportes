@@ -31,8 +31,7 @@ const Login: React.FC = () => {
             router.push('/')
         }        
     }
-    
-    
+        
     return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat bg-[url('https://web.mineracentinela.cl/media/4083/centinela-6.jpg')]">
         <div className="rounded-xl bg-gray-800 bg-opacity-50 px-20 py-10 shadow-lg backdrop-blur-md">

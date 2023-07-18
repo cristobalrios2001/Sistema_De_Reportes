@@ -31,22 +31,21 @@ const AceptarVisita: React.FC = () => {
           </div>  
         </div>
 
-        <div className="container flex flex-row absolute inset-x-80 top-24 text-center">
-              <div className="grid grid-cols-3 gap-16 ml-4">
-                <div className="rounded-3xl bg-[#456570] w-100 px-5 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors">Visita</div>
-                <div className="col-start-2 col-end-3 rounded-3xl bg-[#456570] w-100 px-16 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors">Aceptar</div>
-                <div className="mt-[-8px] col-start-1 flex items-center rounded-3xl bg-[#456570] w-96 px-24 py-3 text-white text-opacity-1000 shadow-xl backdrop-blur-md transition-colors">nombre_1@minerals.cl</div>
-                <div className="flex items-center">
-                  <button className="mr-16 rounded-2xl bg-[#384E55] mt-[-8px] px-16 py-3  shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md ">
-                    <img src='https://cdn.icon-icons.com/icons2/3436/PNG/512/box_tick_icon_218874.png' className="mr-8 object-fill h-8 w-88 " />
-                  </button>
-                  <button className="mr-16 rounded-2xl bg-[#384E55] mt-[-8px] px-16 py-3  shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-sky-800 backdrop-blur-md ">
-                    <img src='https://cdn.icon-icons.com/icons2/2716/PNG/512/x_square_icon_172784.png' className="mr-8 object-fill h-8 w-88 " />
-                  </button>
-                </div>
-              </div>
+        <div className="px-3 py-4 flex justify-center absolute inset-x-80 top-20">
+        <table className="w-full text-md bg-[#384E55]">
+          <tbody>
+              <tr className="border-b">
+                <th className="text-left p-3 px-5">Email</th>
+                <th className="text-right p-3">Aceptar/Rechazar</th>
+                <th></th>
+              </tr>
+              <tr className="hover:bg-sky-800 shadow-lg backdrop-blur-md">
+                <td className="p-3 px-5 bg-transparent">user.email</td>
+                <td className="p-3 px-5 flex justify-end"><button type="button" className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Aceptar</button><button type="button" className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Rechazar</button></td>
+              </tr>
+            </tbody>
+        </table>
         </div>
-          
       </div>
     )
 }
