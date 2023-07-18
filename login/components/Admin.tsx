@@ -71,14 +71,12 @@ const Admin: React.FC = () => {
           
           <div className="TABLA flex flex-row absolute inset-x-80 top-24">
           <h1 className="font-bold"></h1>
-          <table className="border-2 bg-white rounded mt-12">
+          <table className="border-2 bg-white rounded ml-40 mt-12">
             <thead>
               <tr>
-                <th className="bg-[#0C7C8C] border-2 border-black px-20">Fecha</th>
+                <th className="bg-[#0C7C8C] border-2 border-black px-24">Fecha</th>
                 <th className="bg-[#0C7C8C] border-2 border-black px-20">Fase</th>
                 <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor Real</th>
-                <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor ISO</th>
-                <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor Movil</th>
               </tr>
             </thead>
             <tbody id="table-body" className='text-black text-small'>

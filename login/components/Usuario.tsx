@@ -71,16 +71,19 @@ const Usuario: React.FC = () => {
             </div>
           </div>
           
-          <div className="TABLA flex flex-row absolute inset-x-80 top-24">
+          <div className="TABLA flex flex-row absolute inset-x-72 top-24">
             <h1 className="font-bold"></h1>
             <table className="border-2 bg-white rounded mt-12">
               <thead>
                 <tr>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-20">Fecha</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-20">Fase</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor Real</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor ISO</th>
-                  <th className="bg-[#0C7C8C] border-2 border-black px-20">Valor Movil</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Fecha</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Fase</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Extraccion Mineral</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Extraccion Lastre</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-10">Total Extraccion</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Remanejo</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Mov.Total</th>
+                  <th className="bg-[#0C7C8C] border-2 border-black px-6">Chancado</th>
                 </tr>
               </thead>
               <tbody id="table-body" className='text-black text-small'>
